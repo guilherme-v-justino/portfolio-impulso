@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentos · Impulso Fisioterapia Veterinária</title>
+<style>
+:root{font-family:"Segoe UI",Arial,sans-serif;color:#193936;background:#eff3f0;font-size:15px;--green:#125b4d;--line:#ccd9d3}*{box-sizing:border-box}body{margin:0}button,input,textarea,select{font:inherit}button{cursor:pointer;color:var(--green);background:#fff;border:1px solid #acc3b9;border-radius:7px;padding:9px 13px;font-weight:600}button:hover{background:#e7f1eb}button.primary,.tabs button[aria-pressed=true]{background:var(--green);color:white;border-color:var(--green)}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #b87720;outline-offset:2px}
+header{background:#103e36;color:white;padding:18px max(4vw,20px);display:flex;justify-content:space-between;align-items:center;gap:16px}header strong{font:600 24px Georgia,serif}header span{display:block;margin-top:3px;color:#c9e3d7;font-size:13px}.shell{max-width:1520px;margin:auto;padding:24px clamp(12px,3vw,50px) 40px}.tabs,.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.tabs{margin-bottom:18px}.workspace{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:22px;align-items:start}.card,.preview{background:white;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}h2{font-size:19px;margin:0 0 14px}h3{font-size:16px;margin:14px 0 8px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.wide{grid-column:1/-1}label{display:grid;gap:4px;font-size:13px;font-weight:600}input,select,textarea{color:#173c34;background:white;width:100%;min-width:0;border:1px solid #b8c9c1;border-radius:6px;padding:8px}textarea{resize:vertical;min-height:65px}details{margin:10px 0}summary{color:var(--green);font-weight:600;cursor:pointer;padding:5px 0}details>.grid{margin-top:8px}.actions{margin-top:14px}.hint,small{font-size:13px;color:#51675d}.hint{line-height:1.5;margin:8px 0}.item{padding:14px;background:#f5f8f5;border:1px solid var(--line);border-radius:8px;margin:10px 0}.item .row{justify-content:space-between;margin-bottom:10px}.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.option{display:flex;align-items:center;gap:7px;padding:7px;background:#f3f7f4;border-radius:5px;font-weight:400}.option input{width:16px;height:16px;accent-color:var(--green)}.profiles{display:grid;gap:6px}.profiles button,.results button{text-align:left}.profiles small{display:block;margin-top:3px;font-weight:400}.results{display:grid;gap:4px;margin:8px 0;max-height:240px;overflow:auto}.preview{background:#e5ece7;padding:14px;position:sticky;top:8px}.preview>.row{justify-content:space-between;margin-bottom:12px}.preview h2{margin:0;font-size:16px}.paper{color:#202823;background:#fff;box-shadow:0 2px 10px #17392e17;padding:clamp(16px,2.3vw,40px);font:14px/1.45 Arial,sans-serif;overflow-wrap:anywhere;min-height:590px}.letterhead{border-bottom:2px solid #254c40;padding-bottom:10px}.letterhead b{font:600 21px Georgia,serif;display:block}.letterhead div{font-size:12px}.paper h1{font:600 25px Georgia,serif;margin:22px 0 14px}.paper h3{font-size:13px;margin:14px 0 4px;color:#243e32}.paper p{margin:4px 0;white-space:pre-wrap}.paper .entry{margin:8px 0 12px;break-inside:avoid}.signature{break-inside:avoid;margin-top:24px;text-align:center}.signature hr{width:80%;margin:22mm auto 5px;border:0;border-top:1px solid #535f59}.identity{border-bottom:1px solid var(--line);padding-bottom:12px}.signature small{color:inherit}.paper ol{padding-left:22px}.notice{min-height:1em;color:#245849;font-size:14px}.note{color:#81400e}.hidden,[hidden]{display:none!important}.printError{display:none}
+@media(max-width:920px){.workspace{grid-template-columns:1fr}.preview{position:static}.paper{min-height:450px}}
+@media(max-width:500px){.grid,.options{grid-template-columns:1fr}.card{padding:14px}}
+@page{size:A4;margin:0 18mm}
+@media print{html,body,.shell,.workspace,.preview,.paper{display:block!important;background:white!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;min-height:0!important}.preview{position:static}.screen,.preview>.row,header{display:none!important}.paper{font-size:11pt;padding-block:16mm!important;box-decoration-break:clone}.paper h1{font-size:18pt}.paper h3{break-after:avoid}.signature{margin-top:10mm}.letterhead{break-inside:avoid}.invalid .paper{display:none!important}.invalid .printError{display:block}}
+.paper .cardiac-entry p + p{margin:2px 0 0 1em;font-size:.9em;line-height:1.4}
+.preview{min-width:0}
+.identity-row{display:flex;flex-wrap:wrap;gap:0 .9em;margin:4px 0}
+.identity-field{flex:0 0 auto;width:max-content;max-width:100%;overflow-wrap:anywhere}
+</style>
+<header><div><strong>Impulso</strong><span>Demonstração · Use apenas dados fictícios</span></div><button id="newVisit">Novo atendimento</button></header>
+<main class="shell"><nav class="tabs screen" aria-label="Documento"><button data-tab="rx" aria-pressed="true">Receituário</button><button data-tab="ex" aria-pressed="false">Requisição de exames</button></nav>
+<div class="workspace"><section class="screen">
+<div class="card"><h2>Atendimento</h2><div class="grid"><label>Veterinário<select id="vet"><option value="">Selecione o profissional</option><option value="0">Profissional Demo A</option><option value="1">Profissional Demo B</option></select></label><label>Data<input type="date" id="date"></label></div>
+<h3>Tutor e animal</h3><label>Buscar cadastro<input id="lookup" type="search" placeholder="Nome do animal, tutor ou CPF" autocomplete="off"></label><div class="results" id="matches"></div>
+<h3>Tutor</h3><div id="tutorFields" class="grid"></div>
+<h3>Endereço do tutor</h3><div id="addressFields" class="grid"></div><p class="hint" id="cepStatus" aria-live="polite"></p>
+<h3>Animal</h3><div id="animalFields" class="grid"></div><details id="extra"><summary>Mais dados do animal</summary><div class="grid" id="extraFields"></div></details>
+<div class="row"><button id="save">Salvar cadastro</button></div><p class="notice" aria-live="polite" id="status"></p>
+<details><summary>Cópia de segurança do cadastro</summary><p class="hint">Use sempre este arquivo no mesmo perfil do navegador. A cópia contém dados pessoais dos tutores. Guarde-a em um local de acesso restrito.</p><div class="row"><button id="backup">Exportar cópia</button><button id="restore">Restaurar cópia</button><input type="file" id="backupFile" accept=".json" hidden></div></details></div>
+<div id="rx" class="card"><h2>Medicamentos</h2><label class="option"><input type="checkbox" id="specialRx">Receituário de Controle Especial</label><div id="meds"></div><div class="row"><button id="addMed">+ Medicamento</button><button id="addCompound">+ Fórmula manipulada</button></div>
+<details><summary>Receita de controle especial</summary><p class="hint">Esta prévia é apenas uma demonstração do layout.</p></details></div>
+<div id="ex" class="card" hidden><h2>Exames solicitados</h2><details><summary>Perfis rápidos</summary><p class="hint">Clique para adicionar os componentes. Ajuste os exames avulsos se necessário.</p><div class="profiles" id="profiles"></div><p id="applied" class="hint" aria-live="polite"></p></details>
+<label>Buscar exame<input id="examSearch" type="search" placeholder="Nome ou sigla, por exemplo TGP, UPC ou RX"></label>
+<h3>Exames avulsos</h3><div id="catalog"></div><details><summary>Outros exames</summary><div id="others"></div><button id="addOther">+ Outro exame</button></details>
+<h3>Imagem</h3><div class="row" id="imageButtons"></div><div id="images"></div>
+<label class="actions">Indicação clínica e observações<textarea id="indication"></textarea></label></div></section>
+<aside class="preview"><div class="row screen"><h2>Prévia do documento</h2><button class="primary" id="print">Imprimir / salvar PDF</button></div><article class="paper" id="paper"></article><p class="printError">Documento incompleto. Volte ao atendimento e use “Imprimir / salvar PDF” para revisar os campos.</p></aside></div></main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const escapeHTML=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
+const vets=[['Profissional Demo A','DEMO-A','DEMO-A'],['Profissional Demo B','DEMO-B','DEMO-B']];
+const newAddressFields={cep:'CEP',number:'Número',complement:'Complemento',district:'Bairro'};
+const fields={tutor:'Tutor',cpf:'CPF',phone:'Telefone',...newAddressFields,address:'Endereço',city:'Cidade',uf:'UF',animal:'Animal',species:'Espécie',breed:'Raça',sex:'Sexo',age:'Idade informada',weight:'Peso (kg)',coat:'Pelagem',chip:'Microchip',chipDate:'Data de aplicação do microchip'};
+const fieldGroups={tutorFields:['tutor','cpf','phone'],addressFields:['cep','address','number','complement','district','city','uf'],animalFields:['animal','species','breed','sex','age','weight'],extraFields:['coat','chip','chipDate']};
+for(const [container,keys] of Object.entries(fieldGroups))for(const key of keys){
+ const label=key==='address'?'Rua ou logradouro':fields[key];
+ const box=document.createElement('label');const required=['cpf','address'].includes(key);
+ box.textContent=label+(required?' *':'');const input=document.createElement('input');input.id=key;input.required=required;input.autocomplete='off';
+ if(key==='chipDate')input.type='date';if(key==='cpf'){input.placeholder='000.000.000-00';input.inputMode='numeric';input.maxLength=14}if(key==='age')input.placeholder='Ex.: aproximadamente 8 anos';
+ if(key==='cep'){input.placeholder='00000-000';input.inputMode='numeric';input.maxLength=9}
+ box.append(input);$(container).append(box);
+}
+const getData=()=>Object.fromEntries(Object.keys(fields).map(k=>[k,$(k).value.trim()]));
+const status=(msg,err=false)=>{ $('status').textContent=msg;$('status').classList.toggle('note',err) };
+const digits=s=>s.replace(/\D/g,'');
+function resetCep() {
+ $('cepStatus').textContent='Preencha o endereço fictício manualmente.';
+}
+$('cep').addEventListener('input',()=>{
+ const code=digits($('cep').value).slice(0,8);
+ $('cep').value=code.length>5?code.slice(0,5)+'-'+code.slice(5):code;
+ resetCep();
+});
+resetCep();
+const fmtDate=s=>s?s.split('-').reverse().join('/'):'';
+let tab='rx',recordId=null,records=[],database=null,modified=false;
+const dbReady=new Promise((resolve,reject)=>{
+ const req=indexedDB.open('PortfolioImpulsoDocumentos',1);
+ req.onupgradeneeded=()=>req.result.createObjectStore('pacientes',{keyPath:'id'});
+ req.onsuccess=()=>{database=req.result;resolve(database)};req.onerror=()=>reject(req.error);
+});
+async function transact(mode,operation){
+ const db=await dbReady;return new Promise((resolve,reject)=>{
+ const tx=db.transaction('pacientes',mode);let req;
+ try{req=operation(tx.objectStore('pacientes'))}catch(e){tx.abort();reject(e);return}
+ tx.oncomplete=()=>resolve(req?.result);tx.onabort=()=>reject(tx.error||Error('Operação cancelada'));tx.onerror=()=>reject(tx.error);
+ });
+}
+async function refreshRecords(){records=await transact('readonly',s=>s.getAll());findRecords()}
+function findRecords(){
+ const q=norm($('lookup').value.trim());const list=$('matches');list.replaceChildren();if(!q)return;
+ const found=records.filter(r=>[r.animal,r.tutor,r.cpf].some(v=>norm(v).includes(q))||(digits(q).length>=3&&digits(r.cpf).includes(digits(q))));
+ for(const r of found){const b=document.createElement('button');b.textContent=(r.animal||'Animal sem nome')+' · '+(r.tutor||'Tutor sem nome')+' · CPF final '+digits(r.cpf).slice(-4);
+ b.onclick=()=>{if(!canLeave())return;resetVisit();recordId=r.id;for(const k of Object.keys(fields))$(k).value=r[k]??'';status('Cadastro carregado. Confira idade e peso para este atendimento.');render()};list.append(b)}
+ if(!found.length)list.textContent='Nenhum cadastro encontrado.';
+}
+function validIdentity(){
+ if(!/^\d{11}$/.test(digits($('cpf').value))||!/^[0-9.\-]+$/.test($('cpf').value))return ['cpf','Informe o CPF com 11 dígitos.'];
+ if(!$('address').value.trim())return ['address','Preencha o endereço do tutor.'];return null;
+}
+function showIssue(issue){const el=$(issue[0]);const section=el.closest('details');if(section)section.open=true;el.setCustomValidity(issue[1]);el.focus();el.reportValidity();el.setCustomValidity('')}
+function storageError(){status('Não foi possível acessar o cadastro local. Use o Chrome em um perfil normal e verifique o espaço disponível.',true)}
+$('save').onclick=async()=>{const issue=validIdentity();if(issue)return showIssue(issue);const data=getData();
+ try{const r={...data,id:recordId||crypto.randomUUID()};await transact('readwrite',s=>s.put(r));recordId=r.id;await refreshRecords();status('Cadastro salvo neste computador.')}catch{storageError()}};
+$('lookup').oninput=findRecords;
+$('backup').onclick=async()=>{try{await refreshRecords();const blob=new Blob([JSON.stringify({format:'portfolio-impulso-cadastros-v1',records},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Impulso_cadastros_'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);status('Cópia exportada com '+records.length+' cadastro(s).')}catch{storageError()}};
+$('restore').onclick=()=>$('backupFile').click();
+$('backupFile').onchange=async e=>{const file=e.target.files[0];e.target.value='';if(!file)return;
+ try{const data=JSON.parse(await file.text());if(data.format!=='portfolio-impulso-cadastros-v1'||!Array.isArray(data.records)||!data.records.every(r=>r&&typeof r.id==='string'&&r.id&&Object.keys(fields).every(k=>typeof r[k]==='string'||(Object.hasOwn(newAddressFields,k)&&r[k]===undefined))&&digits(r.cpf).length===11&&r.address.trim())||new Set(data.records.map(r=>r.id)).size!==data.records.length)throw Error();
+ if(!confirm('Restaurar '+data.records.length+' cadastro(s)? Cadastros com o mesmo identificador serão atualizados. Os demais serão mantidos.'))return;
+ await transact('readwrite',s=>{for(const r of data.records)s.put(Object.fromEntries(['id',...Object.keys(fields)].map(k=>[k,r[k]??''])))});await refreshRecords();status('Cópia restaurada.')}catch{status('Falha ao restaurar. Confira se o arquivo é uma cópia do cadastro da Impulso.',true)}};
+refreshRecords().catch(storageError);
+const groups={
+ 'Hematologia e coagulação':['Hemograma completo','Reticulócitos','Pesquisa de hemoparasitas','Fibrinogênio','Tempo de protrombina (TP/TAP)','Tempo de tromboplastina parcial ativada (TTPA)'],
+ 'Bioquímica':['Ureia','Creatinina','SDMA','ALT (TGP)','AST (TGO)','Fosfatase alcalina (FA)','GGT','Bilirrubinas totais e frações','Albumina','Proteínas totais','Proteínas totais e frações','Glicose','Frutosamina','Colesterol total','Colesterol HDL','Triglicerídeos','Creatinoquinase (CK)','Lactato','Amilase','Lipase','Lipase pancreática específica canina','Lipase pancreática específica felina'],
+ 'Eletrólitos e minerais':['Sódio (Na)','Potássio (K)','Cloreto (Cl)','Fósforo (P)','Cálcio total','Cálcio ionizado'],
+ 'Endocrinologia':['T4 total','T4 livre','TSH','Cortisol basal','Estimulação com ACTH','Supressão com dexametasona em dose baixa','Supressão com dexametasona em dose alta'],
+ 'Urina':['Urinálise','Relação proteína/creatinina urinária (RPCU/UPC)','Urocultura com antibiograma'],
+ 'Outros de rotina':['Parasitológico de fezes','Pesquisa de Giardia','Teste FIV/FeLV','Citologia','Cultura bacteriana com antibiograma']
+};
+const [hemo]=groups['Hematologia e coagulação'];
+const [urea,creatinine,,alt,ast,fa,ggt,,alb,protein,,glucose,,chol,,trig]=groups.Bioquímica;
+const [t4,freeT4,tsh,cort,,suppression]=groups.Endocrinologia;
+const check=[hemo,alt,ast,fa,urea,creatinine,alb,protein,glucose];
+const profiles={'Check-up 1':check,'Check-up 2':[...check,trig,chol,ggt],'Geriátrico':[hemo,creatinine,urea,chol,trig,alt,ast,fa,glucose],'Pré-operatório 1':[hemo,alt,ast,fa,urea,creatinine,glucose],'Pré-operatório 2':[hemo,alt,fa,urea,creatinine,alb,protein],'Pré-operatório felino':[hemo,alt,ggt,urea,creatinine,alb,protein],'Endócrino canino 1':[freeT4,tsh,cort],'Endócrino canino 2':[freeT4,tsh,suppression],'Endócrino felino':[t4,tsh]};
+let chosen=new Set(),applied=new Set();
+const examDetails={
+ 'T4 livre':['Método','Quimioluminescência','Radioimunoensaio','Diálise'],
+ 'Urinálise':['Método de coleta','Micção espontânea','Cistocentese','Sondagem'],
+ [suppression]:['Dosagens de cortisol','2 dosagens','3 dosagens'],
+ 'Supressão com dexametasona em dose alta':['Dosagens de cortisol','2 dosagens','3 dosagens'],
+ 'Citologia':['Local da coleta'],'Cultura bacteriana com antibiograma':['Material']
+};
+const examFields=new Map(),examChecks=new Map();
+for(const [name,items] of Object.entries(profiles)){
+ const b=document.createElement('button');const title=document.createElement('strong');title.textContent=name;
+ const small=document.createElement('small');small.textContent=items.join(' · ')+(name==='Endócrino canino 2'?' (3 dosagens de cortisol)':'');b.append(title,small);
+ b.onclick=()=>{for(const x of items){chosen.add(x);examChecks.get(x).checked=true;updateDetail(x)}if(name==='Endócrino canino 2')examFields.get(suppression).value='3 dosagens';applied.add(name);modified=true;render()};$('profiles').append(b);
+}
+function updateDetail(name){const el=examFields.get(name);if(el){el.parentElement.hidden=!chosen.has(name);if(!chosen.has(name))el.value=''}}
+for(const [group,names] of Object.entries(groups)){
+ const section=document.createElement('details');section.dataset.category=group;const title=document.createElement('summary');title.textContent=group;section.append(title);
+ const grid=document.createElement('div');grid.className='options';section.append(grid);
+ for(const name of names){
+ const wrap=document.createElement('div');wrap.dataset.exam=name;const label=document.createElement('label');label.className='option';const cb=document.createElement('input');cb.type='checkbox';cb.onchange=()=>{cb.checked?chosen.add(name):chosen.delete(name);updateDetail(name);modified=true;render()};label.append(cb,name);wrap.append(label);examChecks.set(name,cb);
+ const spec=examDetails[name];if(spec){const label=document.createElement('label');label.hidden=true;label.append(spec[0]);const el=document.createElement(spec.length>1?'select':'input');
+ if(spec.length>1){el.add(new Option('Não especificado',''));for(const value of spec.slice(1))el.add(new Option(value,value))}label.append(el);wrap.append(label);examFields.set(name,el)}grid.append(wrap);
+ }$('catalog').append(section);
+}
+const cardiacModes=['Eletrocardiograma','Ecocardiograma'];
+const modes=['Ultrassonografia','Radiografia','Tomografia computadorizada','Ressonância magnética',...cardiacModes];
+const aliases=['ultrassom us ultrassonografia','raio x raiox rx radiografia','tc tomografia','rm ressonancia','ecg eletro','eco ecodoppler'];
+for(const [i,mode] of modes.entries()){const b=document.createElement('button');b.textContent='+ '+mode;b.dataset.search=aliases[i];b.onclick=()=>addImage(mode);$('imageButtons').append(b)}
+function filterCatalog(){
+ const q=norm($('examSearch').value.trim());let count=0;for(const d of $('catalog').querySelectorAll('details')){let n=0;for(const w of d.querySelectorAll('[data-exam]')){w.hidden=!norm(w.dataset.exam+' '+d.dataset.category).includes(q);if(!w.hidden)n++}d.hidden=!n;if(q)d.open=!!n;count+=n}
+ for(const b of $('imageButtons').children){b.hidden=!norm(b.dataset.search+' '+b.textContent).includes(q);if(!b.hidden)count++}
+ $('noExams').hidden=count>0;
+}
+const noExams=document.createElement('p');noExams.id='noExams';noExams.className='hint';noExams.hidden=true;noExams.textContent='Nenhum resultado. Use o campo Outros exames para incluir o pedido.';$('catalog').after(noExams);
+$('examSearch').oninput=filterCatalog;
+function editorField(grid,key,title,multiline=false,placeholder=''){
+ const label=document.createElement('label');label.textContent=title;if(multiline)label.className='wide';
+ const el=document.createElement(multiline?'textarea':'input');el.dataset.key=key;el.placeholder=placeholder;
+ label.append(el);grid.append(label);return el;
+}
+function editorItem(container,title){
+ const item=document.createElement('section');item.className='item';const row=document.createElement('div');row.className='row';const label=document.createElement('strong');label.textContent=title;const remove=document.createElement('button');remove.textContent='Remover';remove.setAttribute('aria-label','Remover '+title);remove.onclick=()=>{item.remove();modified=true;render()};row.append(label,remove);
+ const grid=document.createElement('div');grid.className='grid';item.append(row,grid);container.append(item);return {item,grid};
+}
+function addMed(compound=false,focus=true){
+ const {item,grid}=editorItem($('meds'),compound?'Fórmula manipulada':'Medicamento');item.dataset.kind=compound?'compound':'drug';
+ const name=editorField(grid,'name',compound?'Nome da fórmula (opcional)':'Medicamento');
+ if(compound)editorField(grid,'formula','Componentes e concentrações',true,'Um componente por linha');else editorField(grid,'strength','Concentração');
+ editorField(grid,'form','Apresentação',false,'Ex.: cápsulas, solução');editorField(grid,'qty','Quantidade a dispensar');const route=editorField(grid,'route','Via de administração');route.setAttribute('list','routes');editorField(grid,'sig','Modo de usar',true);
+ if(focus){name.focus();modified=true}render();
+}
+const routes=document.createElement('datalist');routes.id='routes';for(const r of ['Oral','Tópica','Oftálmica','Otológica','Inalatória','Subcutânea','Intramuscular'])routes.append(new Option(r));document.body.append(routes);
+$('addMed').onclick=()=>addMed();$('addCompound').onclick=()=>addMed(true);
+function addImage(mode){const {item,grid}=editorItem($('images'),mode);item.dataset.kind=mode;
+ if(cardiacModes.includes(mode)){editorField(grid,'note','Observações',true).focus();modified=true;render();return}
+ const region=editorField(grid,'region','Região anatômica',false,mode==='Ultrassonografia'?'Ex.: abdômen total':'Ex.: joelho, coluna lombossacra');
+ editorField(grid,'side','Lateralidade',false,'Ex.: direita, bilateral');if(mode==='Radiografia')editorField(grid,'views','Projeções');editorField(grid,'note','Observações',true);
+ modified=true;region.focus();render();
+}
+function readItems(id){return Array.from($(id).children,item=>({kind:item.dataset.kind,...Object.fromEntries(Array.from(item.querySelectorAll('[data-key]'),el=>[el.dataset.key,el.value.trim()]))}))}
+function addOther(focus=true){
+ const {grid}=editorItem($('others'),'Exame avulso');
+ const name=editorField(grid,'name','Nome do exame');
+ editorField(grid,'note','Descrição ou indicação específica (opcional)',true);
+ if(focus){name.focus();modified=true}
+}
+$('addOther').onclick=()=>addOther();
+function canLeave(){return !modified||confirm('Encerrar o atendimento atual? As informações em edição serão limpas. Os cadastros já salvos continuarão disponíveis.')}
+function resetVisit(){
+ resetCep();
+ $('specialRx').checked=false;
+ for(const k of Object.keys(fields))$(k).value='';recordId=null;$('date').value=today();$('vet').value='';$('lookup').value='';findRecords();$('extra').open=false;
+ $('meds').replaceChildren();$('images').replaceChildren();chosen.clear();applied.clear();for(const [name,cb] of examChecks){cb.checked=false;updateDetail(name)}
+ $('others').replaceChildren();addOther(false);
+ for(const k of ['indication','examSearch'])$(k).value='';filterCatalog();for(const d of $('ex').querySelectorAll('details'))d.open=false;status('');addMed(false,false);modified=false;render();
+}
+$('newVisit').onclick=()=>{if(canLeave())resetVisit()};
+for(const b of document.querySelectorAll('[data-tab]'))b.onclick=()=>{tab=b.dataset.tab;for(const t of document.querySelectorAll('[data-tab]'))t.setAttribute('aria-pressed',String(t===b));$('rx').hidden=tab!=='rx';$('ex').hidden=tab!=='ex';render()};
+const h=escapeHTML;
+const par=s=>s?'<p>'+h(s)+'</p>':'';
+function labName(name){const value=examFields.get(name)?.value.trim();return name+(value?' — '+value:'')}
+function nonemptyMed(m){return Object.entries(m).some(([k,v])=>k!=='kind'&&v)}
+function rxBody(meds){
+ const byRoute=new Map();for(const m of meds){const key=norm(m.route);if(!byRoute.has(key))byRoute.set(key,[]);byRoute.get(key).push(m)}
+ let ix=0,out='';for(const list of byRoute.values()){if(list[0].route)out+='<h3>Via '+h(list[0].route)+'</h3>';
+ for(const m of list){const name=[m.name||(m.kind==='compound'?'Fórmula manipulada':''),m.strength,m.form].filter(Boolean).join(' · ');
+ out+='<div class="entry"><p><b>'+(++ix)+'. '+h(name)+'</b>'+ (m.qty?' — '+h(m.qty):'')+'</p>'+par(m.formula)+par(m.sig)+'</div>'}}return out;
+}
+function examBody(){
+ let out='';for(const [group,names] of Object.entries(groups)){const list=names.filter(n=>chosen.has(n)).map(labName);if(list.length)out+='<h3>'+h(group)+'</h3>'+par(list.join(' · '))}
+ for(const other of readItems('others'))if(other.name)out+='<div class="entry"><p><b>'+h(other.name)+'</b></p>'+par(other.note)+'</div>';
+ const images=readItems('images');for(const cardiac of [false,true]){
+ const items=images.filter(image=>cardiacModes.includes(image.kind)===cardiac);if(items.length)out+='<h3>'+(cardiac?'Cardiologia':'Diagnóstico por imagem')+'</h3>';for(const image of items){out+='<div class="'+(cardiac?'entry cardiac-entry':'entry')+'">'+par([image.kind,image.region,image.side,image.views].filter(Boolean).join(' — '))+par(image.note)+'</div>'}}
+ if($('indication').value.trim())out+='<h3>Indicação clínica</h3>'+par($('indication').value.trim());return out;
+}
+function render(){
+ const d=getData(),vet=vets[$('vet').value],meds=readItems('meds').filter(nonemptyMed);
+ const ident=keys=>{
+  const items=keys.filter(k=>d[k]).map(k=>'<span class="identity-field">'+h(fields[k])+' — '+h(k==='chipDate'?fmtDate(d[k]):d[k])+'</span>');
+  return items.length?'<div class="identity-row">'+items.join('')+'</div>':'';
+ };
+ const heading=tab==='rx'?($('specialRx').checked?'Receituário de Controle Especial':'Receituário'):'Requisição de exames';
+ $('paper').innerHTML='<div class="letterhead"><b>Impulso Fisioterapia Veterinária</b><div>Demonstração de portfólio · Sem validade clínica</div></div><h1>'+heading+'</h1><section class="identity">'+ident(['tutor','cpf','phone'])+ident(['address','number','complement','district','city','uf','cep'])+ident(['animal','species','breed','sex','age','weight'])+ident(['coat','chip','chipDate'])+'</section>'+(tab==='rx'?rxBody(meds):examBody())+'<div class="signature">'+par('Curitiba – PR'+($('date').value?', '+fmtDate($('date').value):''))+'<hr>'+(vet?'<b>'+h(vet[0])+'</b><br><small>CRMV-PR '+vet[1]+' · SIPEAGRO '+vet[2]+'</small>':'')+'</div>';
+ $('applied').textContent=Array.from(applied,p=>p+(profiles[p].some(n=>!chosen.has(n))||(p==='Endócrino canino 2'&&examFields.get(suppression).value!=='3 dosagens')?' (modificado)':'')).join(' · ');
+}
+function printIssue(){
+ if(!$('vet').value)return ['vet','Selecione o veterinário que assinará o documento.'];if(!$('date').value)return ['date','Informe a data do atendimento.'];const issue=validIdentity();if(issue)return issue;
+ if(tab==='rx'){
+ const items=readItems('meds');if(!items.some(nonemptyMed))return ['addMed','Inclua um medicamento ou fórmula antes de imprimir.'];
+ for(const [i,m] of items.entries()){if(!nonemptyMed(m))continue;const k=m.kind==='compound'?'formula':'name';if(!m[k]||!m.sig){const el=$('meds').children[i].querySelector('[data-key="'+(!m[k]?k:'sig')+'"]');el.id='check-med-'+i+'-'+el.dataset.key;return [el.id,'Complete a identificação, composição ou modo de usar deste item.']}}
+ }else{
+ const others=readItems('others');const missing=others.findIndex(item=>item.note&&!item.name);
+ if(missing>=0){const field=$('others').children[missing].querySelector('[data-key="name"]');field.id='other-name-'+missing;return [field.id,'Informe o nome do exame correspondente à descrição.']}
+ if(!chosen.size&&!$('images').children.length&&!others.some(item=>item.name))return ['examSearch','Selecione ao menos um exame antes de imprimir.'];
+ }return null;
+}
+$('print').onclick=()=>{const issue=printIssue();if(issue){const el=$(issue[0]);if(el.tagName==='BUTTON'){alert(issue[1]);el.focus()}else showIssue(issue);return}window.print()};
+const appTitle=document.title;
+window.addEventListener('beforeprint',()=>{
+ document.title='\u200b';
+ document.body.classList.toggle('invalid',!!printIssue());render();
+});
+window.addEventListener('afterprint',()=>{
+ document.title=appTitle;document.body.classList.remove('invalid');
+});
+document.addEventListener('input',e=>{if(['lookup','examSearch','backupFile'].includes(e.target.id))return;modified=true;render()});
+resetVisit();
+</script>
+</html>

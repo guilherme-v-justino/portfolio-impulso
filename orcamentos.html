@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orçamentos · Impulso Fisioterapia Veterinária</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eff3f0;color:#193936;font:16px/1.45 "Segoe UI",Arial,sans-serif}header{background:#103e36;color:white;padding:18px max(5vw,20px);display:flex;align-items:baseline;gap:14px}header strong{font:600 26px Georgia,serif}header span{color:#d6e6dc;font-size:14px}main{max-width:1420px;margin:auto;padding:26px clamp(14px,4vw,55px) 48px}h1{font:normal clamp(30px,4vw,42px) Georgia,serif;margin:0 0 20px}h2{font-size:19px;margin:0 0 14px}h3{font-size:16px;margin:0}.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:20px;align-items:start}.card,aside{background:#fff;border:1px solid #ccd9d3;border-radius:12px;padding:20px;margin-bottom:14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.full{grid-column:1/-1}label{display:grid;gap:4px;font-size:14px;font-weight:600}input,select,textarea,button{font:inherit}input,select,textarea{width:100%;min-width:0;border:1px solid #aebfb6;border-radius:6px;padding:9px;color:inherit;background:white}textarea{resize:vertical}.check{display:flex;align-items:center;gap:9px;margin-top:12px}.check input{width:18px;height:18px;accent-color:#125b4d}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px}button{cursor:pointer;color:#125b4d;background:white;border:1px solid #9eb9ab;border-radius:7px;padding:9px 13px;font-weight:600}button:hover{background:#edf5f0}.primary{background:#125b4d;color:white}.primary:hover{background:#103e36}details{margin:14px 0}summary{cursor:pointer;font-weight:600;color:#125b4d}.inset{margin-top:10px;padding:12px;background:#f2f6f3;border-radius:7px}.preview{white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.56 "Segoe UI",Arial,sans-serif;background:#f6f8f5;padding:16px;border-radius:8px;margin:0 0 16px}.actions{display:flex;flex-wrap:wrap;gap:8px}.hint{color:#52665c;font-size:14px}.status{margin:8px 0 0;font-size:14px;color:#125b4d}[hidden],#paper{display:none}:focus-visible{outline:3px solid #ae741a;outline-offset:2px}@media(max-width:850px){.layout{grid-template-columns:1fr}}@media(max-width:500px){.grid{grid-template-columns:1fr}.card,aside{padding:15px}header{flex-wrap:wrap}}@page{size:A4;margin:17mm}@media print{body{background:white;color:#173c34;font:11pt/1.4 Arial,sans-serif}header,main{display:none}#paper{display:block}#paper h1{font-size:24pt;margin:8pt 0}#paper p{white-space:pre-wrap;overflow-wrap:anywhere;margin:8pt 0}#paper section{break-inside:avoid;border-top:1px solid #ccc;margin-top:10pt;padding-top:6pt}}
+</style></head><body>
+<header><strong>Impulso</strong><span>Demonstração · Dados e valores fictícios</span></header><main><h1>Orçamento de tratamento</h1><details class="card" id="settings"><summary>Configurações de preços e descontos</summary><form id="settingsForm"><h3 style="margin-top:14px">Valores base por serviço (R$)</h3><div class="grid inset" id="prices"></div><h3 style="margin-top:14px">Descontos por forma de pagamento (%)</h3><div class="grid inset" id="discounts"></div><p class="hint">Ao salvar, a tabela passa a valer para a proposta aberta e para os próximos orçamentos neste navegador. Os descontos manuais de cada opção são preservados.</p><button type="submit">Salvar configurações</button><p id="settingsStatus" role="status" class="status"></p></form></details><div class="layout"><form id="form" autocomplete="off"><section class="card"><h2>Dados da proposta</h2><div class="grid"><label>Tutor<input id="tutor" required></label><label>Paciente<input id="pet" required></label><label>Data de emissão<input id="date" type="date" min="1900-01-01" max="9999-12-31" required></label></div><label class="check"><input id="evaluation" type="checkbox"> <span id="evalLabel"></span></label><label class="check" id="evalRow" hidden><input id="evalDiscount" type="checkbox">Aplicar desconto também à avaliação</label></section><div id="options"></div><button id="add" type="button">+ Adicionar alternativa</button></form>
+<aside><h2>Mensagem para o tutor</h2><div id="preview" class="preview" tabindex="0"></div><div class="actions"><button class="primary" id="copy">Copiar para WhatsApp</button><button id="print">Imprimir / Salvar em PDF</button></div><p class="status" id="status" role="status"></p></aside></div></main><article id="paper"></article>
+<template id="option"><section class="card option"><div class="row"><h2 class="heading" style="margin:0"></h2><button class="remove" type="button">Remover alternativa</button></div><div class="grid"><label class="full">Frequência proposta<select class="frequency" required><option value="">Selecione</option><option value="1 vez por semana">1x/sem</option><option value="2 vezes por semana">2x/sem</option><option value="3 vezes por semana">3x/sem</option><option value="outro">Outro</option></select></label><label class="full customFrequencyRow" hidden>Frequência personalizada<input class="customFrequency" disabled placeholder="Ex.: 4 vezes por semana"></label><label>Sessões de fisioterapia<input class="physio" type="number" min="0" max="99999" step="1" value="0" required></label><label>Sessões exclusivas de hidroterapia<input class="hydro" type="number" min="0" max="99999" step="1" value="0" required></label></div>
+<details><summary>Período e detalhes opcionais</summary><div class="grid inset"><label>Início previsto<input class="start" type="date" min="1900-01-01" max="9999-12-31"></label><label>Término previsto<input class="end" type="date" min="1900-01-01" max="9999-12-31"></label><label class="full">Distribuição semanal<input class="distribution" placeholder="Ex.: 2 de fisioterapia e 1 de hidroterapia"></label><label class="full"><span class="noteLabel"></span><textarea class="note" rows="2"></textarea></label></div></details><label class="check"><input type="checkbox" class="custom">Editar descontos desta opção</label><div class="rates inset grid" hidden></div></section></template>
+<script>
+'use strict';
+const config = {physio:12000, hydro:8000, evaluation:15000, payments:[
+ {label:'Pix ou dinheiro',rate:8},{label:'Débito ou crédito à vista',rate:4},{label:'Crédito em até 3x',rate:0}
+]};
+const id = key => document.getElementById(key);
+const money = cents => (cents/100).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}).replace(/\u00a0/g,' ');
+const brDate = value => value.split('-').reverse().join('/');
+const cards = () => Array.from(id('options').children);
+const localDay = new Date();
+id('date').value = [localDay.getFullYear(),String(localDay.getMonth()+1).padStart(2,'0'),String(localDay.getDate()).padStart(2,'0')].join('-');
+const settingsKey='portfolio.impulso.orcamentos.v1';
+const priceKeys=['physio','hydro','evaluation'];
+const priceLabels=['Sessão de fisioterapia','Sessão exclusiva de hidroterapia','Avaliação'];
+const settingsFields=[];
+function applyTable(values){
+ priceKeys.forEach((key,i)=>config[key]=values[i]);
+ config.payments.forEach((payment,i)=>payment.rate=values[i+3]/100);
+ id('evalLabel').textContent='Incluir avaliação · '+money(config.evaluation);
+}
+let table=[...priceKeys.map(key=>config[key]),...config.payments.map(p=>Math.round(p.rate*100))];
+try{
+ const saved=JSON.parse(localStorage.getItem(settingsKey));
+ if(Array.isArray(saved)&&saved.length===6&&saved.every((v,i)=>Number.isInteger(v)&&
+   (i<3?v>0&&v<=999999:v>=0&&v<=10000))) table=saved;
+}catch{}
+applyTable(table);
+[...priceLabels,...config.payments.map(p=>p.label)].forEach((name,i)=>{
+ const label=document.createElement('label');
+ label.textContent=name;
+ const input=document.createElement('input');
+ Object.assign(input,{type:'text',inputMode:'decimal',required:true,value:(table[i]/100).toFixed(2).replace('.',',')});
+ input.oninput=()=>{input.setCustomValidity('');id('settingsStatus').textContent='Alterações pendentes. Clique em Salvar configurações para aplicar.'};
+ settingsFields.push(input);label.append(input);id(i<3?'prices':'discounts').append(label);
+});
+id('settingsForm').onsubmit=e=>{
+ e.preventDefault();
+ const values=[];
+ for(const [i,input] of settingsFields.entries()){
+  const raw=input.value.trim();
+  const amount=Math.round(Number(raw.replace(',','.'))*100);
+  if(!/^\d+(?:[.,]\d{1,2})?$/.test(raw)||(i<3?amount<1||amount>999999:amount>10000)){
+   input.setCustomValidity(i<3?'Informe um preço de R$ 0,01 a R$ 9.999,99, com até dois decimais.':'Informe um percentual de 0 a 100, com até dois decimais.');
+   input.reportValidity();return;
+  }
+  values.push(amount);
+ }
+ applyTable(values);
+ for(const card of cards()){
+  if(!card.querySelector('.custom').checked){
+   card.querySelectorAll('.rates input').forEach((input,i)=>input.value=config.payments[i].rate);
+  }
+ }
+ render();
+ try{
+  localStorage.setItem(settingsKey,JSON.stringify(values));
+  id('settingsStatus').textContent='Tabela salva neste navegador. Orçamento atualizado.';
+ }catch{
+  id('settingsStatus').textContent='Tabela aplicada nesta sessão. O navegador bloqueou o salvamento para a próxima abertura.';
+ }
+};
+function optionName(index){
+ let name='';
+ for(let n=index+1;n>0;n=Math.floor((n-1)/26)) name=String.fromCharCode(65+(n-1)%26)+name;
+ return 'Opção '+name;
+}
+function addOption(){
+ const card=id('option').content.firstElementChild.cloneNode(true);
+ const rates=card.querySelector('.rates');
+ for(const payment of config.payments){
+  const label=document.createElement('label');
+  label.textContent=payment.label+' (%)';
+  const input=document.createElement('input');
+  Object.assign(input,{type:'number',min:'0',max:'100',step:'0.01',value:String(payment.rate),required:true,disabled:true});
+  label.append(input);rates.append(label);
+ }
+ card.querySelector('.custom').onchange=e=>{
+  rates.hidden=!e.target.checked;
+  rates.querySelectorAll('input').forEach((input,i)=>{
+   input.disabled=rates.hidden;
+   if(rates.hidden) input.value=config.payments[i].rate;
+  });
+  render();
+ };
+ card.querySelector('.remove').onclick=()=>{card.remove();render()};
+ id('options').append(card);render();
+}
+function linesFor(card,index,count){
+ const field=name=>card.querySelector('.'+name);
+ const val=name=>field(name).value.trim();
+ const physio=Number(val('physio')),hydro=Number(val('hydro'));
+ const subtotal=physio*config.physio+hydro*config.hydro;
+ const evaluation=id('evaluation').checked?config.evaluation:0;
+ const eligible=subtotal+(id('evalDiscount').checked?evaluation:0);
+ const customFrequency=val('frequency')==='outro';
+ field('customFrequencyRow').hidden=!customFrequency;
+ field('customFrequency').disabled=!customFrequency;
+ field('customFrequency').required=customFrequency;
+ const frequency=customFrequency?val('customFrequency'):val('frequency');
+ const title=index?optionName(index):(count>1?'Opção A · ':'')+'Indicação clínica';
+ field('heading').textContent=title;
+ field('remove').hidden=!index;
+ field('noteLabel').textContent=index?'Observação':'Justificativa clínica ou observação';
+ field('physio').setCustomValidity(physio+hydro>0?'':'Informe ao menos uma sessão nesta opção.');
+ // Avoid resetting the native date editor while the user types a year.
+ const start=field('start'),end=field('end');
+ const minimum=start.value && start.validity.valid?start.value:'1900-01-01';
+ if(end.min!==minimum) end.min=minimum;
+ const lines=[frequency,val('distribution')].filter(Boolean);
+ if(val('start')) lines.push('Início previsto em '+brDate(val('start'))+'.');
+ if(val('end')) lines.push('Término previsto em '+brDate(val('end'))+'.');
+ if(val('note')) lines.push(val('note'));
+ if(physio) lines.push(physio+(physio===1?' sessão de fisioterapia':' sessões de fisioterapia')+' × '+money(config.physio));
+ if(hydro) lines.push(hydro+(hydro===1?' sessão exclusiva':' sessões exclusivas')+' de hidroterapia × '+money(config.hydro));
+ if(evaluation) lines.push('Avaliação incluída nos totais · '+money(evaluation));
+ lines.push('Total antes dos descontos · '+money(subtotal+evaluation));
+ const inputs=field('rates').querySelectorAll('input');
+ config.payments.forEach((payment,i)=>{
+  const rate=field('custom').checked?Number(inputs[i].value):payment.rate;
+  const basisPoints=Math.round(rate*100);
+  const total=Math.round(eligible*(10000-basisPoints)/10000)+subtotal+evaluation-eligible;
+  lines.push(payment.label+' · '+money(total));
+ });
+ return {title,lines};
+}
+let message='';
+function element(tag,value){const node=document.createElement(tag);node.textContent=value;return node}
+function render(){
+ id('evalRow').hidden=!id('evaluation').checked;
+ if(id('evalRow').hidden)id('evalDiscount').checked=false;
+ for(const input of id('form').querySelectorAll('input[type=date]')){
+  const year=Number(input.value.split('-')[0]);
+  input.setCustomValidity(input.value && (year<1900 || year>9999)?'Informe o ano completo com quatro algarismos (ex.: 2026).':'');
+ }
+ const options=cards().map((card,i,all)=>linesFor(card,i,all.length));
+ const form=id('form');
+ for(const input of form.querySelectorAll('input[required]:not([type])')){
+  input.setCustomValidity(input.value.trim()?'':'Preencha este campo.');
+ }
+ id('status').textContent='';
+ const paper=id('paper');paper.replaceChildren();
+ const preview=id('preview');preview.replaceChildren();
+ if(!form.checkValidity()){
+  message='';preview.textContent='Preencha os dados do tutor e do paciente, a frequência e as sessões. Confira também as datas e informe o ano completo (ex.: 2026). A mensagem aparecerá aqui quando os campos estiverem válidos.';return;
+ }
+ const tutor=id('tutor').value.trim(),pet=id('pet').value.trim(),date=brDate(id('date').value);
+ const opening='Olá, '+tutor+'! Segue a proposta de tratamento para o/a '+pet+'.';
+ const footer='Os valores apresentados já consideram os descontos aplicáveis a cada forma de pagamento.\n\nProposta válida por 30 dias a partir de '+date+'. Os prazos de utilização das sessões seguem as condições do contrato.';
+ const confirmation=options.length>1?'Para confirmar, me diga qual opção você escolheu e como prefere pagar.':'Para confirmar este pacote, me diga como prefere pagar.';
+ message=[opening,...options.map(o=>'*'+o.title+'*\n'+o.lines.join('\n')),footer,confirmation].join('\n\n');
+ preview.append(document.createTextNode(opening+'\n\n'));
+ paper.append(element('strong','Impulso · Demonstração com valores fictícios'),element('h1','Orçamento de tratamento'),element('p','Tutor: '+tutor+'   ·   Paciente: '+pet+'\nEmissão: '+date));
+ for(const option of options){
+  preview.append(element('strong',option.title),document.createTextNode('\n'+option.lines.join('\n')+'\n\n'));
+  const section=element('section','');section.append(element('h2',option.title),element('p',option.lines.join('\n')));paper.append(section);
+ }
+ preview.append(document.createTextNode(footer+'\n\n'+confirmation));paper.append(element('p',footer));
+}
+function ready(){
+ render();if(message)return true;
+ const invalid=id('form').querySelector(':invalid');
+ if(invalid){const details=invalid.closest('details');if(details)details.open=true;invalid.reportValidity();invalid.focus()}
+ return false;
+}
+id('form').oninput=render;id('form').onchange=render;id('form').onsubmit=e=>e.preventDefault();
+id('add').onclick=()=>{addOption();cards().at(-1).querySelector('.frequency').focus()};
+id('copy').onclick=async()=>{
+ if(!ready())return;
+ try{await navigator.clipboard.writeText(message);id('status').textContent='Mensagem copiada. Cole na conversa do WhatsApp.'}
+ catch{
+  const box=element('textarea','');box.readOnly=true;box.value=message;box.setAttribute('aria-label','Texto para cópia manual');
+  id('preview').replaceChildren(box);box.rows=12;box.focus();box.select();
+  id('status').textContent='Texto selecionado. Use o comando Copiar do seu dispositivo.';
+ }
+};
+id('print').onclick=()=>{if(ready())window.print()};
+addOption();
+</script></body></html>
